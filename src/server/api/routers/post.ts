@@ -17,7 +17,8 @@ const posts: Post[] = [
 export const postRouter = createTRPCRouter({
   hello: publicProcedure
     .input(z.object({ text: z.string() }))
-    .query(({ input }) => {
+    .query(({ input, ctx }) => {
+      ctx.logger.info(`Received input: ${input.text}`);
       return {
         greeting: `Hello ${input.text}`,
       };
